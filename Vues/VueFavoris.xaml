@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AP4DantecMarket.Vues.VueFavoris"
+             Title="Mes Favoris"
+             BackgroundColor="#1E1E1E">
+
+    <ContentPage.Content>
+        <StackLayout Padding="10" Spacing="10">
+
+            <!-- Titre -->
+            <Label Text="Mes Favoris"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center"/>
+
+            <!-- Liste des favoris avec ScrollView -->
+            <ScrollView VerticalOptions="FillAndExpand">
+                <StackLayout x:Name="FavorisContainer" Padding="10" Spacing="10">
+                    <!-- Les produits favoris seront affichés ici -->
+                </StackLayout>
+            </ScrollView>
+
+            <!-- Bouton pour recharger -->
+            <Button Text="Actualiser"
+                    BackgroundColor="#FFD700"
+                    TextColor="Black"
+                    FontAttributes="Bold"
+                    Clicked="OnRefreshClicked"/>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

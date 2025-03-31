@@ -95,6 +95,10 @@ namespace AP4DantecMarket.Vues
         {
             await Navigation.PushAsync(new VueCommandes());
         }
+        private async void OnVoirFavorisClicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync("favoris");
+        }
 
     }
 }

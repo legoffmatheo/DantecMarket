@@ -86,6 +86,9 @@
 	  <MauiXaml Update="Vues\VueCommandes.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Vues\VueFavoris.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Vues\VuePanier.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

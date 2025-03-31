@@ -15,6 +15,7 @@ namespace AP4DantecMarket
             Routing.RegisterRoute("categorie", typeof(VueCategorieParent));
             Routing.RegisterRoute("panier", typeof(VuePanier));
             Routing.RegisterRoute("commandes", typeof(VueCommandes));
+            Routing.RegisterRoute("favoris", typeof(VueFavoris));
         }
 
     }

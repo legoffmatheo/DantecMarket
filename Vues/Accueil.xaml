@@ -96,6 +96,17 @@
                         HeightRequest="70"
                         Grid.Row="1" Grid.Column="1"/>
             </Grid>
+
+            <!-- Bouton Favoris -->
+            <Button Text="⭐ Favoris"
+                    x:Name="ButtonFavoris"
+                    Clicked="OnVoirFavorisClicked"
+                    BackgroundColor="#FFD700"
+                    TextColor="Black"
+                    FontAttributes="Bold"
+                    CornerRadius="25"
+                    HeightRequest="70"
+                    HorizontalOptions="Fill"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
