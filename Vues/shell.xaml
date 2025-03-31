@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:AP4DantecMarket.Vues"
+       x:Class="AP4DantecMarket.AppShell"
+       FlyoutBackgroundColor="#88554C48"
+       FlyoutWidth="150"
+       FlyoutHeight="150"
+       FlyoutIcon="menu.png"
+       TitleColor="White"
+       BackgroundColor="#2A2A2A"
+       FlyoutBehavior="Flyout">
+
+
+    <FlyoutItem Title="Accueil">
+        <ShellContent>
+            <local:VueAccueil />
+        </ShellContent>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Produits">
+        <ShellContent>
+            <local:VueProduit />
+        </ShellContent>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Catégories">
+        <ShellContent>
+            <local:VueCategorieParent />
+        </ShellContent>
+    </FlyoutItem>
+    
+    
+
+</Shell>

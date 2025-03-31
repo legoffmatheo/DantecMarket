@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DantecMarcket.Vues.VueProduitDetail"
+             BackgroundColor="#292A2D"
+             Title="Détail du Produit">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+           
+
+            <!-- Détails du produit -->
+            <Frame BackgroundColor="#3A3B3D"
+                   Padding="20"
+                   CornerRadius="20"
+                   HasShadow="True">
+                <VerticalStackLayout Spacing="8">
+
+                    <!-- Nom du produit -->
+                    <Label Text="{Binding NomProduit}"
+                           FontSize="26"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           HorizontalOptions="Center"
+                           LineBreakMode="WordWrap"
+                           Margin="0,0,0,5"/>
+                    <CollectionView ItemsSource="{Binding LesImages}" HeightRequest="300">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Padding="5" HasShadow="True" BackgroundColor="Transparent">
+                                    <Image Source="{Binding FullUrl}" Aspect="AspectFill" HeightRequest="250" />
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    <!-- Prix et Stock -->
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+                        <Label Text="{Binding Prix, StringFormat='💰 {0} €'}"
+                               FontSize="22"
+                               TextColor="Gold"
+                               FontAttributes="Bold"/>
+
+                        <Label Text="{Binding QuantiteDisponible, StringFormat='📦 {0} en stock'}"
+                               FontSize="18"
+                               TextColor="LightGreen"/>
+                    </HorizontalStackLayout>
+
+                    
+
+                </VerticalStackLayout>
+            </Frame>
+            <Frame BackgroundColor="#3A3B3D"
+       Padding="20"
+       CornerRadius="20"
+       HasShadow="True">
+                <Label Text="{Binding DescriptionNettoyee}"
+           FontSize="18"
+           TextColor="LightGray"
+           LineBreakMode="WordWrap"/>
+            </Frame>
+
+            <Button Text="🛒 Acheter maintenant"
+        BackgroundColor="Gold"
+        TextColor="Black"
+        Padding="12"
+        FontSize="20"
+        FontAttributes="Bold"
+        CornerRadius="30"
+        Margin="10,10,10,20"
+        HeightRequest="55"
+        HorizontalOptions="Fill"
+        Clicked="AjouterProduitAuPanier"/>
+            <Button Text="⭐ Ajouter aux favoris"
+        BackgroundColor="DarkOrange"
+        TextColor="White"
+        Padding="12"
+        FontSize="20"
+        FontAttributes="Bold"
+        CornerRadius="30"
+        Margin="10,10,10,20"
+        HeightRequest="55"
+        HorizontalOptions="Fill"
+        Clicked="AjouterAuxFavoris"/>
+
+
+
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AP4DantecMarket.Vues.VueAccueil"
+             BackgroundColor="#1A1A1A"
+             Padding="15">
+
+    <ScrollView>
+        <VerticalStackLayout HorizontalOptions="Fill" VerticalOptions="Fill" Spacing="20">
+            <!-- Logo et email utilisateur -->
+            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="15">
+                <Image Source="logo.png"
+                       HeightRequest="100"
+                       HorizontalOptions="Center"
+                       Margin="0,10,0,5"/>
+                <Label x:Name="UserEmailLabel"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       TextColor="#FFD700"
+                       HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <!-- Carrousel amélioré -->
+            <Frame Padding="10"
+                   BackgroundColor="#2E2E30"
+                   BorderColor="#FFD700"
+                   CornerRadius="15"
+                   HasShadow="True"
+                   HorizontalOptions="Fill"
+                   Margin="10">
+                <CarouselView x:Name="MessageCarousel"
+                              HeightRequest="60"
+                              Loop="True"
+                              IsSwipeEnabled="True"
+                              HorizontalOptions="Fill">
+                    <CarouselView.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Bienvenue sur Dantec Market !</x:String>
+                            <x:String>Découvrez nos offres exclusives</x:String>
+                            <x:String>Profitez de nos promotions !</x:String>
+                        </x:Array>
+                    </CarouselView.ItemsSource>
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <Label Text="{Binding}"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="White"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   Padding="10"/>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+            </Frame>
+
+            <!-- Grille de boutons optimisée -->
+            <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="*,*" RowSpacing="15" ColumnSpacing="15" HorizontalOptions="Fill" Padding="10">
+                <Button Text="🔍 Rechercher"
+                        x:Name="ButtonRechercher"
+                        Clicked="OnVoirProduitsClicked"
+                        BackgroundColor="#FFD700"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        CornerRadius="25"
+                        HeightRequest="70"
+                        Grid.Row="0" Grid.Column="0"/>
+
+                <Button Text="📂 Catégories"
+                        x:Name="ButtonCategories"
+                        Clicked="OnVoirCategorieClicked"
+                        BackgroundColor="#FFD700"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        CornerRadius="25"
+                        HeightRequest="70"
+                        Grid.Row="0" Grid.Column="1"/>
+
+                <Button Text="🛒 Panier"
+                        x:Name="ButtonPanier"
+                        Clicked="OnVoirPanierClicked"
+                        BackgroundColor="#FFD700"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        CornerRadius="25"
+                        HeightRequest="70"
+                        Grid.Row="1" Grid.Column="0"/>
+
+                <Button Text="📦 Commandes"
+                        x:Name="ButtonCommandes"
+                        Clicked="AllerCommandes"
+                        BackgroundColor="#FFD700"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        CornerRadius="25"
+                        HeightRequest="70"
+                        Grid.Row="1" Grid.Column="1"/>
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

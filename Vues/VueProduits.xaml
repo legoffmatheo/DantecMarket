@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DantecMarcket.Vues.VueProduits"
+             BackgroundColor="#2E2E30"
+             Title="Produits">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!-- Titre -->
+            <Label Text="🛒 Liste des Produits"
+                   FontSize="26"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="Gold"
+                   Margin="0,10,0,20"/>
+
+            <!-- Liste des Produits -->
+            <CollectionView ItemsSource="{Binding Produits}" SelectionMode="None">
+
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical"
+                                     Span="{OnIdiom Phone=1, Tablet=2}"
+                                     HorizontalItemSpacing="12"
+                                     VerticalItemSpacing="12"/>
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="#3C3C3E"
+                               BorderColor="Transparent"
+                               Padding="15"
+                               Margin="5"
+                               HasShadow="True"
+                               CornerRadius="16"
+                            
+                               Opacity="0.95">
+
+                            <!-- Effet au toucher -->
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnProduitTapped" CommandParameter="{Binding}" />
+                            </Frame.GestureRecognizers>
+
+                            <VerticalStackLayout Spacing="10">
+
+                                <!-- Image du produit -->
+                                <Image Source="{Binding LesImages[0].FullUrl}"
+                                       Aspect="AspectFill"
+                                       HeightRequest="150"
+                                      
+                                       HorizontalOptions="Fill"
+                                       />
+
+                                <!-- Nom du produit -->
+                                <Label Text="{Binding NomProduit}"
+                                       FontSize="20"
+                                       FontAttributes="Bold"
+                                       TextColor="White"
+                                       LineBreakMode="WordWrap"
+                                       HorizontalOptions="Center"/>
+
+                                <!-- Description courte -->
+                                <Label Text="{Binding Descriptioncourte}"
+                                       FontSize="16"
+                                       TextColor="LightGray"
+                                       LineBreakMode="WordWrap"
+                                       MaxLines="2"
+                                       HorizontalOptions="Center"/>
+
+                                <!-- Prix -->
+                                <Label Text="{Binding Prix, StringFormat='💰 {0} €'}"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       TextColor="Gold"
+                                       HorizontalOptions="Center"/>
+
+                            </VerticalStackLayout>
+
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

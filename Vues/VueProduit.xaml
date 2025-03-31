@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AP4DantecMarket.Vues.VueProduit"
+             BackgroundColor="#2E2E30"
+             Padding="10">
+
+    <Grid RowDefinitions="Auto, Auto, Auto, *">
+
+        <!-- Titre -->
+        <Label Text="🛒 Nos Produits"
+           FontSize="28"
+           FontAttributes="Bold"
+           HorizontalOptions="Center"
+           VerticalOptions="Center"
+           TextColor="Gold"
+           Margin="0,10,0,5"
+           Grid.Row="0"/>
+
+        <!-- Barre de recherche -->
+        <SearchBar x:Name="ProductSearchBar"
+               Grid.Row="1"
+               Placeholder="Rechercher un produit..."
+               TextChanged="OnSearchBarTextChanged"
+               BackgroundColor="#333"
+               TextColor="White"
+               PlaceholderColor="LightGray"
+               HeightRequest="45"
+               Margin="0,0,0,10"/>
+
+        <!-- Picker pour le tri -->
+        <Picker x:Name="SortPicker"
+            Grid.Row="2"
+            Title="Trier par"
+            SelectedIndexChanged="OnSortPickerChanged"
+            BackgroundColor="#333"
+            TextColor="White">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>A → Z</x:String>
+                    <x:String>Z → A</x:String>
+                    <x:String>Croissant</x:String>
+                    <x:String>Décroissant</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+
+        <!-- Liste des produits -->
+        <CollectionView x:Name="ProduitsListView" Grid.Row="3">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"/>
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BorderColor="Gold"
+                       BackgroundColor="#2A2A2A"
+                       Padding="10"
+                       Margin="5"
+                       HasShadow="True"
+                       CornerRadius="15">
+
+                        <HorizontalStackLayout Spacing="10">
+
+                            <!-- Image du produit -->
+                            <Frame Padding="5"
+                               HasShadow="True"
+                               BackgroundColor="Transparent"
+                               CornerRadius="10"
+                               WidthRequest="120">
+                                <Image Source="{Binding LesImages[0].FullUrl}"
+                                   Aspect="AspectFill"
+                                   HeightRequest="100"
+                                   WidthRequest="100"/>
+                            </Frame>
+
+                            <!-- Infos du produit -->
+                            <VerticalStackLayout VerticalOptions="CenterAndExpand" Spacing="5"
+                                             WidthRequest="200">
+
+                                <Label Text="{Binding NomProduit}" 
+                                   FontSize="18" 
+                                   FontAttributes="Bold"
+                                   TextColor="White"
+                                   LineBreakMode="WordWrap"/>
+
+                                <Label Text="{Binding Descriptioncourte}"
+                                   FontSize="14"
+                                   TextColor="LightGray"
+                                   LineBreakMode="WordWrap"
+                                   MaxLines="5"/>
+
+                                <Label Text="{Binding Prix, StringFormat='💰 {0:C}'}" 
+                                   FontSize="16" 
+                                   FontAttributes="Bold"
+                                   TextColor="Gold"
+                                   HorizontalOptions="Center"/>
+
+                                <Button Text="Voir Détails"
+                                    BackgroundColor="Gold"
+                                    TextColor="Black"
+                                    CornerRadius="10"
+                                    Clicked="OnProduitTapped"
+                                    CommandParameter="{Binding}"
+                                    HeightRequest="40"
+                                    WidthRequest="150"
+                                    HorizontalOptions="Center"/>
+
+                            </VerticalStackLayout>
+
+                        </HorizontalStackLayout>
+
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+
+
+
+
+
+
+</ContentPage>

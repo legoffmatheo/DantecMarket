@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DantecMarcket.Vues.VuePanier"
+             Title="Mon Panier"
+             BackgroundColor="#1A1A1A">
+
+    <Grid Padding="20" RowDefinitions="Auto,*,Auto">
+
+        <!-- Titre du panier -->
+        <Label Text="🛒 Votre Panier"
+               FontSize="30"
+               HorizontalOptions="Center"
+               TextColor="#FFD700"
+               FontAttributes="Bold"
+               Grid.Row="0"
+               Margin="15"/>
+
+        <!-- Conteneur défilant des produits -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout x:Name="ProduitsContainer" Spacing="15" Padding="10">
+                <!-- Produits ajoutés dynamiquement ici -->
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Footer avec le total et le bouton Réserver -->
+        <Grid Grid.Row="2" Padding="12" BackgroundColor="#252525" ColumnDefinitions="*, Auto">
+
+            <!-- Total général -->
+            <Frame BackgroundColor="#333333"
+                   Padding="15"
+                   CornerRadius="15"
+                   BorderColor="#FFD700"
+                   HasShadow="True"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Start"
+                   Margin="0,10,10,10">
+                <Label x:Name="TotalGeneralLabel"
+                       Text="Total: 0.00 €"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="#32CD32"
+                       HorizontalOptions="Center"/>
+            </Frame>
+
+            <!-- Bouton Réserver -->
+            <Button Text="Réserver"
+                    Clicked="OnReserverMobileClicked"
+                    BackgroundColor="#FFD700"
+                    TextColor="#1A1A1A"
+                    FontAttributes="Bold"
+                    CornerRadius="15"
+                    HeightRequest="55"
+                    WidthRequest="150"
+                    Grid.Column="1"
+                    VerticalOptions="Center"
+                    HorizontalOptions="End"
+                    Margin="10,10,0,10"/>
+        </Grid>
+    </Grid>
+</ContentPage>

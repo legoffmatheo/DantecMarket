@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DantecMarcket.Vues.VueReserver"
+             Title="Réserver un Mobile"
+             BackgroundColor="#1A1A1A">
+    <!-- Fond noir -->
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+
+        <!-- Titre stylisé -->
+        <Label Text="📅 Réserver un Mobile"
+               FontSize="28"
+               HorizontalOptions="Center"
+               FontAttributes="Bold"
+               TextColor="#FFD700"
+               Margin="10"/>
+
+        <!-- Sélection du Planning -->
+        <Frame Padding="15"
+               BackgroundColor="#2E2E30"
+               BorderColor="#FFD700"
+               CornerRadius="15"
+               HasShadow="True"
+               Margin="0,10,0,10">
+            <VerticalStackLayout>
+                <Label Text="Sélectionnez un Planning"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       TextColor="White"/>
+                <Picker x:Name="PlanningPicker"
+                        Title="Choisissez un planning"
+                        ItemsSource="{Binding Plannings}"
+                        ItemDisplayBinding="{Binding JourFormatte}"
+                        SelectedIndexChanged="OnPlanningSelected"
+                        TextColor="White"
+                        BackgroundColor="#2E2E30"/>
+            </VerticalStackLayout>
+        </Frame>
+
+        <!-- Affichage de la plage horaire -->
+        <Frame Padding="15"
+               BackgroundColor="#2E2E30"
+               BorderColor="#FFD700"
+               CornerRadius="15"
+               HasShadow="True"
+               IsVisible="{Binding IsHoraireVisible}"
+               Margin="0,10,0,10">
+            <Label x:Name="HoraireLabel"
+                   Text="Plage horaire : "
+                   FontSize="18"
+                   TextColor="#32CD32" 
+                HorizontalOptions="Center"/>
+        </Frame>
+
+        <!-- Bouton Réserver -->
+        <Button Text="Réserver"
+                BackgroundColor="#FFD700"
+                TextColor="#1A1A1A"
+                FontAttributes="Bold"
+                CornerRadius="15"
+                HeightRequest="50"
+                Clicked="OnReserverClicked"
+                Margin="10"/>
+    </VerticalStackLayout>
+</ContentPage>

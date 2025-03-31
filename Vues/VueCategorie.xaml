@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DantecMarcket.Vues.VueCategorie"
+             BackgroundColor="#2E2E30"
+             Title="Sous-catégories">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!-- Titre de la page -->
+            <Label Text="📂 Choisissez une sous-catégorie"
+                   FontSize="26"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="Gold"
+                   Margin="0,10,0,20"/>
+
+            <!-- Liste des sous-catégories -->
+            <CollectionView ItemsSource="{Binding SousCategories}"
+                            SelectionMode="None">
+
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical"
+                                     Span="{OnIdiom Phone=1, Tablet=2}"
+                                     HorizontalItemSpacing="12"
+                                     VerticalItemSpacing="12"/>
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="#3C3C3E"
+                               BorderColor="Transparent"
+                               Padding="0"
+                               Margin="5"
+                               HasShadow="True"
+                               CornerRadius="16"
+                             
+                               Opacity="0.95">
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnSubCategoryTapped" CommandParameter="{Binding}" />
+                            </Frame.GestureRecognizers>
+
+                            <HorizontalStackLayout>
+
+                                
+                                <BoxView WidthRequest="8"
+                                         BackgroundColor="Gold"
+                                         CornerRadius="4"
+                                         VerticalOptions="Fill"/>
+
+                                <!-- Texte de la sous-catégorie -->
+                                <Label Text="{Binding Nom}"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       VerticalOptions="Center"
+                                       TextColor="White"
+                                       Padding="15"
+                                       LineBreakMode="WordWrap"
+                                       MaxLines="2"/>
+                                <!-- Limite à 2 lignes max -->
+                            </HorizontalStackLayout>
+
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
