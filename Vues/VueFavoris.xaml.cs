@@ -6,15 +6,14 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Microsoft.Maui.Controls;
 using AP4DantecMarket.Modeles;
-using projetBase;
-using Microsoft.Maui.Graphics;
 using DantecMarcket.Vues;
+using projetBase;
 
 namespace AP4DantecMarket.Vues
 {
     public partial class VueFavoris : ContentPage
     {
-        private List<Produit> tousLesFavoris = new List<Produit>();
+        private List<Favori> tousLesFavoris = new List<Favori>();
 
         public VueFavoris()
         {
@@ -22,7 +21,6 @@ namespace AP4DantecMarket.Vues
             ChargerFavoris();
         }
 
-        // ?? Charger les favoris depuis l'API
         private async void ChargerFavoris()
         {
             try
@@ -36,7 +34,7 @@ namespace AP4DantecMarket.Vues
 
                 using HttpClient client = new HttpClient();
                 string apiUrl = "http://213.130.144.159/api/mobile/getListeFavorisMobile";
-                var requestData = new { userId = userId };
+                var requestData = new { userId };
                 var jsonContent = new StringContent(JsonConvert.SerializeObject(requestData), Encoding.UTF8, "application/json");
 
                 var response = await client.PostAsync(apiUrl, jsonContent);
@@ -47,7 +45,7 @@ namespace AP4DantecMarket.Vues
                 }
 
                 var responseContent = await response.Content.ReadAsStringAsync();
-                tousLesFavoris = JsonConvert.DeserializeObject<List<Produit>>(responseContent);
+                tousLesFavoris = JsonConvert.DeserializeObject<List<Favori>>(responseContent);
                 AfficherFavoris(tousLesFavoris);
             }
             catch (Exception ex)
@@ -56,7 +54,7 @@ namespace AP4DantecMarket.Vues
             }
         }
 
-        private void AfficherFavoris(List<Produit> favoris)
+        private void AfficherFavoris(List<Favori> favoris)
         {
             FavorisContainer.Children.Clear();
 
@@ -72,17 +70,15 @@ namespace AP4DantecMarket.Vues
                 return;
             }
 
-            foreach (var produit in favoris)
+            foreach (var favori in favoris)
             {
-                var supprimerButton = new Button
+                var imageProduit = new Image
                 {
-                    Text = "Supprimer",
-                    BackgroundColor = Colors.Red,
-                    TextColor = Colors.White,
-                    CornerRadius = 10,
-                    HorizontalOptions = LayoutOptions.FillAndExpand
+                    Source = favori.ImageFullUrl,
+                    HeightRequest = 100,
+                    WidthRequest = 100,
+                    Aspect = Aspect.AspectFit
                 };
-                supprimerButton.Clicked += (sender, args) => SupprimerFavori(produit.Id);
 
                 var detailsButton = new Button
                 {
@@ -92,7 +88,17 @@ namespace AP4DantecMarket.Vues
                     CornerRadius = 10,
                     HorizontalOptions = LayoutOptions.FillAndExpand
                 };
-                detailsButton.Clicked += (sender, args) => Navigation.PushAsync(new VueProduitDetail(produit));
+                detailsButton.Clicked += async (sender, args) => await VoirDetailsProduit(favori.Id);
+
+                var supprimerButton = new Button
+                {
+                    Text = "Supprimer",
+                    BackgroundColor = Colors.Red,
+                    TextColor = Colors.White,
+                    CornerRadius = 10,
+                    HorizontalOptions = LayoutOptions.FillAndExpand
+                };
+                supprimerButton.Clicked += async (sender, args) => await SupprimerFavori(favori.Id);
 
                 var frame = new Frame
                 {
@@ -106,24 +112,60 @@ namespace AP4DantecMarket.Vues
                     {
                         Spacing = 5,
                         Children =
-                {
-                    new Label { Text = $"ID : {produit.Id}", FontSize = 16, FontAttributes = FontAttributes.Bold, TextColor = Colors.White },
-                    new Label { Text = $"Nom : {produit.NomProduit}", FontSize = 14, TextColor = Color.FromArgb("#FFD700") },
-                    new Label { Text = $"Prix : {produit.Prix} €", FontSize = 14, TextColor = Color.FromArgb("#32CD32") },
-                    new StackLayout
-                    {
-                        Orientation = StackOrientation.Horizontal,
-                        Spacing = 10,
-                        Children = { detailsButton, supprimerButton }
-                    }
-                }
+                        {
+                            imageProduit,
+                            new Label { Text = $"Nom : {favori.NomProduit}", FontSize = 14, TextColor = Color.FromArgb("#FFD700") },
+                            new Label { Text = $"Prix : {favori.Prix} €", FontSize = 14, TextColor = Color.FromArgb("#32CD32") },
+                            new StackLayout
+                            {
+                                Orientation = StackOrientation.Horizontal,
+                                Spacing = 10,
+                                Children = { detailsButton, supprimerButton }
+                            }
+                        }
                     }
                 };
 
                 FavorisContainer.Children.Add(frame);
             }
         }
-        private async void SupprimerFavori(int produitId)
+
+        private async Task VoirDetailsProduit(int produitId)
+        {
+            try
+            {
+                using HttpClient client = new HttpClient();
+                string apiUrl = "http://213.130.144.159/api/mobile/produits";
+
+                var response = await client.GetAsync(apiUrl);
+                if (!response.IsSuccessStatusCode)
+                {
+                    await DisplayAlert("Erreur", "Impossible de récupérer la liste des produits.", "OK");
+                    return;
+                }
+
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var listeProduits = JsonConvert.DeserializeObject<List<Produit>>(responseContent);
+
+                // Chercher le produit par son ID
+                var produitDetail = listeProduits?.Find(p => p.Id == produitId);
+
+                if (produitDetail != null)
+                {
+                    await Navigation.PushAsync(new VueProduitDetail(produitDetail));
+                }
+                else
+                {
+                    await DisplayAlert("Erreur", "Produit introuvable.", "OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Erreur", $"Erreur lors du chargement du produit : {ex.Message}", "OK");
+            }
+        }
+
+        private async Task SupprimerFavori(int produitId)
         {
             try
             {
@@ -136,7 +178,7 @@ namespace AP4DantecMarket.Vues
 
                 using HttpClient client = new HttpClient();
                 string apiUrl = "http://213.130.144.159/api/mobile/SupprimerFavoriMobile";
-                var requestData = new { userId = userId, produitId = produitId };
+                var requestData = new { userId, produitId };
                 var jsonContent = new StringContent(JsonConvert.SerializeObject(requestData), Encoding.UTF8, "application/json");
 
                 var response = await client.PostAsync(apiUrl, jsonContent);
@@ -147,7 +189,7 @@ namespace AP4DantecMarket.Vues
                 }
 
                 await DisplayAlert("Succès", "Favori supprimé avec succès.", "OK");
-                ChargerFavoris(); // Recharge la liste après suppression
+                ChargerFavoris();
             }
             catch (Exception ex)
             {
@@ -155,7 +197,6 @@ namespace AP4DantecMarket.Vues
             }
         }
 
-        // ?? Bouton d'actualisation pour recharger la liste
         private void OnRefreshClicked(object sender, EventArgs e)
         {
             ChargerFavoris();
