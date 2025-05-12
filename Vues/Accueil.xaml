@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AP4DantecMarket.Vues.VueAccueil"
@@ -107,6 +106,125 @@
                     CornerRadius="25"
                     HeightRequest="70"
                     HorizontalOptions="Fill"/>
+
+            <!-- Section des promotions -->
+            <Frame Padding="10"
+                   BackgroundColor="#2E2E30"
+                   BorderColor="#FFD700"
+                   CornerRadius="15"
+                   HasShadow="True"
+                   HorizontalOptions="Fill"
+                   Margin="10">
+                <CollectionView ItemsSource="{Binding Promotions}" 
+                ItemsLayout="VerticalList">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Margin="10"
+                   Padding="10"
+                   BorderColor="Gray"
+                   CornerRadius="10"
+                   HasShadow="True">
+                                <StackLayout Spacing="8">
+                                    <!-- Titre de la promotion -->
+                                    <Label Text="{Binding Titre}" 
+                           FontAttributes="Bold"
+                           FontSize="Medium"
+                           TextColor="Black"
+                           LineBreakMode="TailTruncation" />
+
+                                    <!-- Date de la promotion -->
+                                    <Label Text="{Binding DateDebut, StringFormat='Valable du {0:d}'}"
+FontSize="14"
+TextColor="LightGray"/>
+
+                                    <!-- Bouton vers la page produit -->
+                                    <Button Text="Voir Offre"
+                            BackgroundColor="Gold"
+                            TextColor="Black"
+                            CornerRadius="8"
+                            HorizontalOptions="FillAndExpand"
+                            Clicked="OnPromoClicked" />
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <ScrollView Orientation="Horizontal">
+                    <HorizontalStackLayout Spacing="10">
+                        <CollectionView x:Name="PromotionListView"
+               ItemsSource="{Binding Promotions}"
+                ItemsLayout="VerticalList"
+                VerticalOptions="FillAndExpand"   
+                            HorizontalOptions="FillAndExpand"
+                           
+                            Margin="0,0,0,15">
+
+                            <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                                    <Frame Padding="10"
+       Margin="0, 0, 0, 0" 
+                                        BackgroundColor="#2E2E30"
+       BorderColor="#FFD700"
+       CornerRadius="15"
+       HasShadow="True"
+       HorizontalOptions="Fill">
+
+
+
+                                        <HorizontalStackLayout Spacing="10">
+                                            <Frame Padding="5"
+       HasShadow="True"
+       BackgroundColor="Transparent"
+       CornerRadius="10"
+       WidthRequest="100">
+                                                <Image Source="{Binding Produit.LesImages[0].FullUrl}"
+           Aspect="AspectFit"   
+                                                    HeightRequest="90"
+                                                  
+                                                    WidthRequest="90"/>
+                                                   
+                                            </Frame>
+
+
+
+                                            <!-- Détails de la promotion -->
+                                    <VerticalStackLayout VerticalOptions="CenterAndExpand" Spacing="5" HorizontalOptions="FillAndExpand">
+
+
+                                        <Label Text="{Binding Produit.NomProduit}" 
+                               FontSize="18" 
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               LineBreakMode="WordWrap"/>
+
+                                        <Label Text="{Binding DateDebut}"
+                               FontSize="14"
+                               TextColor="LightGray"/>
+
+                                        <HorizontalStackLayout>
+                                            <Label Text="{Binding Produit.Prix, StringFormat='Prix : {0:C}'}" TextColor="Red"/>
+                                            <Label Text="{Binding PrixPromo, StringFormat='Promo : {0:C}'}" TextColor="Green"/>
+                                        </HorizontalStackLayout>
+                                        <Button Text="Voir Offre"
+        BackgroundColor="Gold"
+        TextColor="Black"
+        CornerRadius="10"
+        HeightRequest="40"
+        HorizontalOptions="Center"
+        Clicked="OnPromoClicked" />
+
+
+                                    </VerticalStackLayout>
+
+                                </HorizontalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                    </HorizontalStackLayout>
+                </ScrollView>
+
+            </Frame>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

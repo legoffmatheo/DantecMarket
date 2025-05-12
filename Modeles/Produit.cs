@@ -50,6 +50,8 @@ namespace AP4DantecMarket.Modeles
         [JsonProperty("lesImages")]
         public List<ImageProduit> LesImages { get => lesImages; set => lesImages = value; }
 
+        [JsonProperty("lesPromos")]
+        public List<Promotion> LesPromos { get; set; }
         public string DescriptionNettoyee
         {
             get
